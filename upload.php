@@ -1,34 +1,3 @@
-<?php
-    include "./config.php";
-
-    if(isset($_POST["submit"])) {
-        $db = new mysqli($addr, $login, $password, $dbname);
-       
-        if ($db->connect_error) {
-            echo '<div class="terminal-alert terminal-alert-error">Connection failed: ' 
-                . mysqli_connect_error() . '</div>';
-        } else {
-            $title = str_replace(['"',"'", "<", ">"], "", $_POST["title"]);
-            $author = str_replace(['"',"'", "<", ">"], "", $_POST["author"]);
-            $filename = "./books/" . basename($_FILES["file"]["name"]);
-            $date = preg_replace("/[^0-9]/", "", $_POST["date"]);
-
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $filename)) {
-                $query = "REPLACE into books (title, author, pub_date, book_filename) VALUES 
-                          ('$title', '$author', '$date', '$filename')";
-                
-                $insert = $db->query($query);
-
-                if ($insert) {
-                    echo '<div class="terminal-alert terminal-alert-primary">Successful</div>';
-                }
-            } else {
-                echo '<div class="terminal-alert terminal-alert-error">Error upload</div>';
-            }
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -69,6 +38,35 @@
         </div>
         <div class="container">
             <section>
+                <?php
+                    include "./config.php";
+
+                    if(isset($_POST["submit"])) {
+                        $db = new mysqli($addr, $login, $password, $dbname);
+
+                        if ($db->connect_error) {
+                            echo '<div class="terminal-alert terminal-alert-error">Failed connecting to DB</div>';
+                        } else {
+                            $title = htmlentities($_POST["title"]);
+                            $author = htmlentities($_POST["author"]);
+                            $filename = "./books/" . basename($_FILES["file"]["name"]);
+                            $date = preg_replace("/[^0-9]/", "", $_POST["date"]);
+
+                            if (move_uploaded_file($_FILES['file']['tmp_name'], $filename)) {
+                                $query = "insert into books (title, author, pub_date, book_filename) values 
+                                          ('$title', '$author', '$date', '$filename')";
+
+                                $insert = $db->query($query);
+
+                                if ($insert) {
+                                    echo '<div class="terminal-alert terminal-alert-primary">Successful</div>';
+                                }
+                            } else {
+                                echo '<div class="terminal-alert terminal-alert-error">Error upload</div>';
+                            }
+                        }
+                    }
+                ?>
                 <form action="./upload.php" method="POST" enctype="multipart/form-data">
                     <fieldset>
                         <legend>New book</legend>
