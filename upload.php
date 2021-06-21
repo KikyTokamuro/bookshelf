@@ -5,7 +5,7 @@
         <title>BookShelf - Upload</title>
         <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.1/dist/terminal.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet">
-        <script src="./js/script.js"></script>
+        <script src="./js/alert.js"></script>
     </head>
     <body class="terminal">
         <div class="container">
@@ -27,11 +27,6 @@
                                 <span property="name">Upload</span>
                             </a>
                         </li>
-                        <li property="itemListElement" typeof="ListItem">
-                            <a href="./remove.php" property="item" typeof="WebPage" class="menu-item">
-                                <span property="name">Remove</span>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
             </div>
@@ -39,9 +34,11 @@
         <div class="container">
             <section>
                 <?php
-                    include "./config.php";
+                    // Upload new books to DB
 
                     if(isset($_POST["submit"])) {
+                        include "./config.php";
+
                         $db = new mysqli($addr, $login, $password, $dbname);
 
                         if ($db->connect_error) {
@@ -53,17 +50,17 @@
                             $date = preg_replace("/[^0-9]/", "", $_POST["date"]);
 
                             if (move_uploaded_file($_FILES['file']['tmp_name'], $filename)) {
-                                $query = "insert into books (title, author, pub_date, book_filename) values 
-                                          ('$title', '$author', '$date', '$filename')";
+                                $sql = "insert into books (title, author, pub_date, book_filename) values 
+                                        ('$title', '$author', '$date', '$filename')";
 
-                                $insert = $db->query($query);
-
-                                if ($insert) {
+                                if ($db->query($sql)) {
                                     echo '<div class="terminal-alert terminal-alert-primary">Successful</div>';
                                 }
                             } else {
                                 echo '<div class="terminal-alert terminal-alert-error">Error upload</div>';
                             }
+
+                            $db->close();
                         }
                     }
                 ?>

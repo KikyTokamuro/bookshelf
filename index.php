@@ -4,6 +4,7 @@
         <title>BookShelf</title>
         <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.1/dist/terminal.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet">
+        <script src="./js/alert.js"></script>
         <script src="./js/script.js"></script>
     </head>
     <body class="terminal">
@@ -26,16 +27,11 @@
                                 <span property="name">Upload</span>
                             </a>
                         </li>
-                        <li property="itemListElement" typeof="ListItem">
-                            <a href="./remove.php" property="item" typeof="WebPage" class="menu-item">
-                                <span property="name">Remove</span>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="container">
+        <div id="books-table" class="container">
             <section>
                 <table>
                     <thead>
@@ -43,10 +39,13 @@
                             <th>Title</th>
                             <th>Author</th>
                             <th>Publication date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
+                        // Get books from DB
+
                         include "./config.php";
 
                         $db = new mysqli($addr, $login, $password, $dbname);
@@ -54,21 +53,29 @@
                         if ($db->connect_error) {
                             echo '<div class="terminal-alert terminal-alert-error">Failed connecting to DB</div>';
                         } else {
-                            $query = "select id, title, author, pub_date from books";
-                            $select = $db->query($query);
+                            $sql = "select id, title, author, pub_date from books";
+                            $select = $db->query($sql);
 
                             if (!$select) {
                                 echo '<div class="terminal-alert terminal-alert-error">Error get items from DB</div>';
                             } else {
                                 while ($row = $select->fetch_assoc()) {
                                     $tr = sprintf(
-                                        "<tr><td><a href='./get.php?id=%s'>%s</a></td><td>%s</td><td>%s</td></tr>",
-                                        $row["id"], $row["title"], $row["author"], $row["pub_date"]
+                                        "<tr id='row-%s'>" .
+                                        "<td><a href='./get.php?id=%s'>%s</a></td>" .
+                                        "<td>%s</td>" .
+                                        "<td>%s</td>" .
+                                        "<th><a onclick='deleteBook(%s)'>Delete</a></th>" .
+                                        "</tr>",
+                                        $row["id"], $row["id"], $row["title"],
+                                        $row["author"], $row["pub_date"], $row["id"]
                                     );
 
                                     echo $tr;
                                 }
                             }
+
+                            $db->close();
                         }
                     ?>
                     </tbody>

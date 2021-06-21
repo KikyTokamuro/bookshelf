@@ -1,12 +1,20 @@
-let alertDiv = document.getElementsByClassName("terminal-alert")
+let deleteBook = async (id) => {
+    let booksTable = document.getElementById("books-table")
+    let response = await fetch(`./delete.php?id=${id}`)
 
-if (typeof(alertDiv) != 'undefined' && alertDiv != null) {
-    setTimeout(
-        () => {
-            for (let i of alertDiv) {
-                i.style.display = "none"
-            }
-        },
-        3000
-    )
+    if (response.ok) {
+        let text = await response.text()
+
+        booksTable.innerHTML =
+            `<div class=\"terminal-alert terminal-alert-primary\">${text}</div>` +
+            booksTable.innerHTML
+
+        setTimeout(() => document.location.reload(), 2000)
+    } else {
+        let text = await response.text()
+
+        booksTable.innerHTML =
+            `<div class=\"terminal-alert terminal-alert-error\">${text}</div>` +
+            booksTable.innerHTML
+    }
 }
