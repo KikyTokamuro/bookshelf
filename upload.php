@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.1/dist/terminal.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet">
         <script src="./js/alert.js"></script>
+        <link rel="stylesheet" href="./css/style.css">
     </head>
     <body class="terminal">
         <div class="container">
@@ -84,7 +85,7 @@
                             <input id="file" name="file" type="file" required>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-default" type="submit" role="button" name="submit" id="submit">Upload</button>
+                            <button class="btn btn-primary btn-ghost" type="submit" role="button" name="submit" id="submit">Upload</button>
                         </div>
                     </fieldset>
                 </form>

@@ -6,6 +6,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet">
         <script src="./js/alert.js"></script>
         <script src="./js/script.js"></script>
+        <link rel="stylesheet" href="./css/style.css">
     </head>
     <body class="terminal">
         <div class="container">

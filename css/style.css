@@ -1,0 +1,16 @@
+:root {
+    --primary-color: #b8bb26;
+    --font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+      serif;
+    --mono-font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+      serif;
+    --background-color: #32302f;
+    --page-width: 60em;
+    --font-color: #a3abba;
+}
+
+a {
+    color: #b8bb26;
+}
