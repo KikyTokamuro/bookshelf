@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <title>BookShelf</title>
+        <link rel="stylesheet" href="https://unpkg.com/terminal.css@0.7.1/dist/terminal.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet">
+        <script src="/static/script.js"></script>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body class="terminal">
+        <div class="container">
+            <div class="terminal-nav">
+                <div class="terminal-logo">
+                    <div class="logo terminal-prompt">
+                        <a href="/">BookShelf</a>
+                    </div>
+                </div>
+                <nav class="terminal-menu">
+                    <ul>
+                        <li>
+                            <a href="/" class="menu-item active">
+                                <span>Books</span>
+                            </a>
+                        </li>
+                        <li property="itemListElement" typeof="ListItem">
+                            <a href="/upload" property="item" typeof="WebPage" class="menu-item">
+                                <span property="name">Upload</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="books-table" class="container">
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Publication date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="books-table-body">
+                        
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </body>
+</html>
