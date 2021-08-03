@@ -1,0 +1,26 @@
+{
+    "name": "kikytokamuro/bookshelf",
+    "description": "Simple service for storing books. Was implemented in order to understand the PHP programming language",
+    "type": "project",
+    "require": {
+        "slim/slim": "^4.8",
+        "slim/psr7": "^1.4",
+        "slim/http": "^1.2",
+        "slim/twig-view": "^3.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kikytokamuro\\Bookshelf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniil Archangelsky (KikyTokamuro)",
+            "email": "kiky.tokamuro@yandex.ru"
+        }
+    ],
+    "scripts": {
+        "start": "php -S localhost:8080 -t ./src/public"
+    }
+}

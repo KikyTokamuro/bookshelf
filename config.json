@@ -1,0 +1,6 @@
+{
+    "addr": "localhost",
+    "login": "root",
+    "password": "root",
+    "dbname": "books"
+}
